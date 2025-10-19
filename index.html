@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pautang Peso Wallet — Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg-layer"></div>
+<div class="container card">
+  <h1 class="brand">Pautang Peso Wallet</h1>
+  <form id="loginForm" class="form">
+    <div class="row">
+      <label>FIRST NAME</label>
+      <input id="firstName" required />
+    </div>
+    <div class="row">
+      <label>LAST NAME</label>
+      <input id="lastName" required />
+    </div>
+    <div class="row">
+      <label>GCASH/MAYA NUMBER</label>
+      <input id="phone" inputmode="numeric" pattern="\d{11}" maxlength="11" placeholder="11 digits" required />
+      <small class="muted">Must be 11 digits</small>
+    </div>
+    <div class="row">
+      <label>GMAIL</label>
+      <input id="email" type="email" required />
+    </div>
+    <div class="row check">
+      <label><input id="remember" type="checkbox" /> remember me (android/ios)</label>
+    </div>
+    <div class="row">
+      <button type="submit" class="btn">Login</button>
+      <button id="logout" type="button" class="btn ghost">Logout</button>
+    </div>
+  </form>
+  <p class="foot">By continuing you accept our Terms.</p>
+  <p class="link"><a href="about.html">About</a></p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

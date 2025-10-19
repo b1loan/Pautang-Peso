@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Payment — Pautang Peso Wallet</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="bg-layer"></div>
+<div class="container card">
+  <h2>Payment — Scan QR</h2>
+  <div class="qrwrap">
+    <img id="qr" src="https://raw.githubusercontent.com/b1loan/Pautang-Peso/17198cc4125ce06cb3ac79ac9d50fdcecabaedd5/Untitled66_20251019151120.jpeg" alt="QR Code" />
+  </div>
+  <p class="muted">Scan this QR to pay. After payment, take a screenshot and upload below.</p>
+  <form id="uploadForm">
+    <input id="screenshot" type="file" accept="image/*" required />
+    <div class="row">
+      <button type="submit" class="btn">Upload Screenshot</button>
+      <button id="cancel" type="button" class="btn ghost">Cancel</button>
+    </div>
+  </form>
+</div>
+<script src="script.js"></script>
+<script>
+document.getElementById('cancel').addEventListener('click',()=>location.href='dashboard.html');
+document.getElementById('uploadForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const f = document.getElementById('screenshot').files[0];
+  if(!f){ alert('Please select your screenshot'); return; }
+  // simulate upload by saving a flag in localStorage
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    localStorage.setItem('pautang_payment_screenshot', ev.target.result);
+    // show 24-hour verification notification for 10 seconds then go back to dashboard (user can screenshot)
+    alert('Screenshot uploaded. You will see a 24-hour verification notification (visible for 10 seconds).');
+    // show a temporary page with message
+    localStorage.setItem('pautang_verification_time', Date.now());
+    location.href = 'verifying.html';
+  };
+  reader.readAsDataURL(f);
+});
+</script>
+</body></html>

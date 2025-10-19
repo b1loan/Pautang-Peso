@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Verifying — Pautang Peso</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="bg-layer"></div>
+<div class="container card">
+  <h2>Verification</h2>
+  <p id="msg">Your payment is under verification. Please wait 24 hours.</p>
+  <p class="muted">This screen will stay visible for 10 seconds so you can screenshot the notice.</p>
+  <div class="row">
+    <button id="back" class="btn">Back to Dashboard</button>
+  </div>
+</div>
+<script>
+setTimeout(()=>{ document.getElementById('msg').textContent = 'Verification pending...'; },1000);
+setTimeout(()=>{ location.href='dashboard.html'; },10000);
+document.getElementById('back').addEventListener('click',()=>location.href='dashboard.html');
+</script>
+</body></html>

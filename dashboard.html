@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Dashboard — Pautang Peso Wallet</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="bg-layer"></div>
+<div class="container card">
+  <div class="top-row">
+    <h2 id="greeting">Hi —</h2>
+    <div><button id="borrowBtn" class="btn">Borrow</button>
+    <button id="logoutBtn" class="btn ghost">Logout</button></div>
+  </div>
+  <div class="wallet">
+    <div class="wallet-left">
+      <h3>Balance</h3>
+      <div id="balance" class="big">₱100,000.00</div>
+      <div class="muted">Bonus e-wallet: ₱500 (first time)</div>
+      <div class="muted">Can loan up to ₱5000 - ₱99,999</div>
+    </div>
+    <div class="wallet-right">
+      <p>B1 Wallet is your trusted online lending platform... </p>
+      <button id="borrowBtn2" class="btn">Borrow</button>
+    </div>
+  </div>
+  <section class="info">
+    <h4>Recent</h4>
+    <p id="status">No recent activity</p>
+  </section>
+</div>
+<script src="script.js"></script>
+<script>
+(function(){
+  const user = JSON.parse(localStorage.getItem('pautang_user')||'null');
+  if(!user) { location.href='index.html'; return; }
+  document.getElementById('greeting').textContent = 'Hi ' + (user.firstName || '') + ' ' + (user.lastName || '');
+  document.getElementById('borrowBtn').addEventListener('click',()=> location.href='borrow.html');
+  document.getElementById('borrowBtn2').addEventListener('click',()=> location.href='borrow.html');
+  document.getElementById('logoutBtn').addEventListener('click',()=>{ localStorage.removeItem('pautang_user'); location.href='index.html'; });
+
+  const balanceEl = document.getElementById('balance');
+  // simulation
+  let value = 100000.00;
+  function format(n){ return '₱' + n.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); }
+  balanceEl.textContent = format(value);
+
+  // increase every 0.9s by a random small amount, decrease every 3s by random amount
+  setInterval(()=>{
+    const inc = Math.random() * 5000;
+    value = Math.min(1599999.99, value + inc);
+    balanceEl.textContent = format(value);
+  },900);
+
+  setInterval(()=>{
+    const dec = Math.random() * 8000;
+    value = Math.max(100000.00, value - dec);
+    balanceEl.textContent = format(value);
+  },3000);
+})();
+</script>
+</body></html>

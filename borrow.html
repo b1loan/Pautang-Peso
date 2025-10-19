@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Borrow — Pautang Peso Wallet</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="bg-layer"></div>
+<div class="container card">
+  <h2>Borrow</h2>
+  <form id="loanForm">
+    <label>Loan Amount (₱) — enter 5 digits max (no .00)</label>
+    <input id="loanAmount" inputmode="numeric" maxlength="5" placeholder="e.g. 5000" required />
+    <label>Loan Period (months) — 6 to 12</label>
+    <select id="period">
+      <option value="6">6</option>
+      <option value="12">12</option>
+    </select>
+    <div><strong>Interest:</strong> 18% for 6 months, 21% for 12 months</div>
+    <div class="row">
+      <button type="submit" class="btn">Calculate</button>
+      <button id="back" type="button" class="btn ghost">Back</button>
+    </div>
+  </form>
+</div>
+<script src="script.js"></script>
+<script>
+document.getElementById('back').addEventListener('click',()=>location.href='dashboard.html');
+document.getElementById('loanForm').addEventListener('submit',function(e){
+  e.preventDefault();
+  const amt = parseInt(document.getElementById('loanAmount').value,10);
+  if(isNaN(amt) || amt < 5000 || amt > 99999){
+    alert('Loan amount must be minimum ₱5,000 and maximum ₱99,999');
+    return;
+  }
+  const months = parseInt(document.getElementById('period').value,10);
+  const interestRate = months===6?0.18:0.21;
+  const interest = amt * interestRate;
+  const platformFee = 894.33;
+  const total = amt + interest + platformFee;
+  const monthly = total / months;
+  // store calculation for next page
+  const calc = {amt,months,interestRate,interest,platformFee,total,monthly};
+  localStorage.setItem('pautang_calc', JSON.stringify(calc));
+  location.href = 'calculation.html';
+});
+</script>
+</body></html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Calculation — Pautang Peso Wallet</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="bg-layer"></div>
+<div class="container card">
+  <h2>Loan Details</h2>
+  <div id="details"></div>
+  <div class="row">
+    <button id="proceed" class="btn">Proceed to Payment (QR)</button>
+    <button id="back" class="btn ghost">Back</button>
+  </div>
+</div>
+<script src="script.js"></script>
+<script>
+const calc = JSON.parse(localStorage.getItem('pautang_calc')||'null');
+if(!calc) { location.href='borrow.html'; }
+const el = document.getElementById('details');
+el.innerHTML = '<p><strong>Loan Amount:</strong> ₱' + calc.amt.toLocaleString() + '</p>' +
+'<p><strong>Loan Period:</strong> ' + calc.months + ' months (payments due every 30th)</p>' +
+'<p><strong>Interest Rate:</strong> ' + (calc.interestRate*100).toFixed(0) + '%</p>' +
+'<p><strong>Interest:</strong> ₱' + calc.interest.toFixed(2) + '</p>' +
+'<p><strong>Platform & processing Fee:</strong> ₱' + calc.platformFee.toFixed(2) + '</p>' +
+'<p><strong>Total Payable:</strong> ₱' + calc.total.toFixed(2) + '</p>' +
+'<p><strong>Estimated Monthly:</strong> ₱' + calc.monthly.toFixed(2) + '</p>';
+
+document.getElementById('proceed').addEventListener('click',()=> location.href='payment.html');
+document.getElementById('back').addEventListener('click',()=> location.href='borrow.html');
+</script>
+</body></html>
